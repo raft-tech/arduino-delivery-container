@@ -13,6 +13,7 @@ steps:
       from_secret: docker_password
   commands:
     - export DOCKER_CLI_EXPERIMENTAL=enabled
+    - sudo apt-get install curl
     - curl -fsSL https://get.docker.com -o get-docker.sh
     - sudo sh get-docker.sh
     - docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
