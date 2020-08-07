@@ -24,7 +24,7 @@ steps:
   settings:
     urls:
       from_secret: notification_url
----
+
 # kind: pipeline
 # name: amd64
 #
