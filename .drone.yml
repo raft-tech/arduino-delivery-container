@@ -14,6 +14,8 @@ steps:
     DOCKER_CLI_EXPERIMENTAL: enabled
     DOCKER_BUILD_KIT: 1
   commands:
+    - apt-get update
+    - apt-get -y upgrade
     - apt-get -y install curl
     - curl https://releases.rancher.com/install-docker/19.03.sh | sh
     - wget https://github.com/docker/buildx/releases/download/v0.4.1/buildx-v0.4.1.linux-amd64
