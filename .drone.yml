@@ -13,7 +13,8 @@ steps:
       from_secret: docker_password
   commands:
     - export DOCKER_CLI_EXPERIMENTAL=enabled
-    - apt update && apt upgrade
+    - apt update
+    - apt upgrade -y
     - apt -y install curl
     - curl -fsSL https://get.docker.com -o get-docker.sh
     - ./get-docker.sh
