@@ -17,7 +17,7 @@ steps:
     - apt upgrade -y
     - apt -y install curl
     - curl -fsSL https://get.docker.com -o get-docker.sh
-    - ./get-docker.sh
+    - sudo sh get-docker.sh
     - docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
     - docker buildx create --name multibuilder
     - docker buildx use multibuilder
