@@ -7,6 +7,7 @@ platform:
   arch: arm
 
 steps:
+
 - name: build arm32
   image: plugins/docker
   settings:
@@ -17,32 +18,35 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
----
-kind: pipeline
-name: amd64
 
-platform:
-  os: linux
-  arch: amd64
-
-steps:
-- name: build amd64
-  image: plugins/docker
+- name: send
+  image: plugins/webhook
   settings:
-    repo: barakstout/arduino-delivery-container
-    auto_tag: true
-    auto_tag_suffix: drone-amd64
-    username:
-      from_secret: docker_username
-    password:
-      from_secret: docker_password
+    urls:
+      from_secret: notification_url
 ---
-kind: pipeline
-name: send done notification
-
-steps:
-  - name: send
-    image: plugins/webhook
-    settings:
-      urls:
-        from_secret: notification_url
+# kind: pipeline
+# name: amd64
+#
+# platform:
+#   os: linux
+#   arch: amd64
+#
+# steps:
+#
+# - name: build amd64
+#   image: plugins/docker
+#   settings:
+#     repo: barakstout/arduino-delivery-container
+#     auto_tag: true
+#     auto_tag_suffix: drone-amd64
+#     username:
+#       from_secret: docker_username
+#     password:
+#       from_secret: docker_password
+#
+# - name: send
+#   image: plugins/webhook
+#   settings:
+#     urls:
+#       from_secret: notification_url
