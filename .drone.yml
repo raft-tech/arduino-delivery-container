@@ -6,6 +6,7 @@ trigger:
   event:
     - push
     - tag
+    - master
 
 steps:
   - name: build amd64
