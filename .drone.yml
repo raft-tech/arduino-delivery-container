@@ -2,12 +2,6 @@
 kind: pipeline
 name: docker builds
 
-trigger:
-  event:
-    - push
-    - tag
-    - master
-
 steps:
   - name: build amd64
     image: plugins/docker
