@@ -7,9 +7,9 @@ steps:
 - name: build
   image: docker
   environment:
-    username:
+    DOCKER_LOGIN:
       from_secret: docker_username
-    password:
+    DOCKER_PASSWORD:
       from_secret: docker_password
     DOCKER_CLI_EXPERIMENTAL: enabled
   commands:
