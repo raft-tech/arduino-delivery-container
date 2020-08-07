@@ -5,7 +5,7 @@ name: default
 steps:
 
 - name: build
-  image: ubuntu
+  image: docker
   environment:
     DOCKER_LOGIN:
       from_secret: docker_username
@@ -13,11 +13,6 @@ steps:
       from_secret: docker_password
   commands:
     - export DOCKER_CLI_EXPERIMENTAL=enabled
-    - apt update --fix-missing
-    - apt upgrade -y
-    - apt -y install curl
-    - curl https://releases.rancher.com/install-docker/19.03.sh | sh
-    - docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
     - docker buildx create --name multibuilder
     - docker buildx use multibuilder
     - docker buildx build --platform linux/amd64,linux/arm/v7,linux/arm/v6 -t barakstout/arduino-delivery-container:latest . --push
