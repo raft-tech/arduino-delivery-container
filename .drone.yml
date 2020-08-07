@@ -5,7 +5,7 @@ name: default
 steps:
 
 - name: build
-  image: docker
+  image: ubuntu
   environment:
     DOCKER_LOGIN:
       from_secret: docker_username
@@ -14,12 +14,16 @@ steps:
     DOCKER_CLI_EXPERIMENTAL: enabled
     DOCKER_BUILD_KIT: 1
   commands:
+    - apt-get update
+    - apt-get -y upgrade
+    - apt-get -y install curl wget
     - wget https://github.com/docker/buildx/releases/download/v0.4.1/buildx-v0.4.1.linux-amd64
     - chmod a+x buildx-v0.4.1.linux-amd64
     - mkdir -p ~/.docker/cli-plugins
     - mv buildx-v0.4.1.linux-amd64 ~/.docker/cli-plugins/docker-buildx
     - docker buildx create --name multibuilder
     - docker buildx use multibuilder
+    - docker version
     - docker buildx build --platform linux/amd64,linux/arm/v7,linux/arm/v6 -t barakstout/arduino-delivery-container:latest . --push
   volumes:
     - name: dockersock
@@ -30,11 +34,6 @@ steps:
   settings:
     urls:
       from_secret: notification_url
-
-volumes:
-  - name: dockersock
-    host:
-      path: /var/run/docker.sock
 
 # kind: pipeline
 # name: amd64
