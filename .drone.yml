@@ -1,54 +1,39 @@
 ---
 kind: pipeline
-name: docker builds
+name: amd64
+
+platform:
+  os: linux
+  arch: amd64
 
 steps:
-  - name: build amd64
-    image: plugins/docker
-    settings:
-      repo: barakstout/arduino-delivery-container
-      auto_tag: true
-      auto_tag_suffix: drone-amd64
-      username:
-        from_secret: docker_username
-      password:
-        from_secret: docker_password
+- name: build amd64
+  image: plugins/docker
+  settings:
+    repo: barakstout/arduino-delivery-container
+    auto_tag: true
+    auto_tag_suffix: drone-amd64
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
 
-  - name: build arm32v7
-    image: plugins/docker
-    settings:
-      repo: barakstout/arduino-delivery-container
-      auto_tag: true
-      auto_tag_suffix: drone-arm
-      username:
-        from_secret: docker_username
-      password:
-        from_secret: docker_password
-      build_args:
-        - ARCH=arm
-        - REPO=arm32v7
+---
+kind: pipeline
+name: arm32v7
 
-  - name: build-arm64
-    image: plugins/docker
-    settings:
-      repo: barakstout/arduino-delivery-container
-      auto_tag: true
-      auto_tag_suffix: drone-arm64
-      username:
-        from_secret: docker_username
-      password:
-        from_secret: docker_password
-      build_args:
-        - ARCH=aarch64
-        - REPO=arm64v8
+platform:
+  os: linux
+  arch: arm32
 
-  - name: publish manifest
-    image: plugins/manifest
-    settings:
-      spec: drone-manifest.tmpl
-      auto_tag: true
-      ignore_missing: true
-      username:
-        from_secret: docker_username
-      password:
-        from_secret: docker_password
+steps:
+- name: build amd32
+  image: plugins/docker
+  settings:
+    repo: barakstout/arduino-delivery-container
+    auto_tag: true
+    auto_tag_suffix: drone-arm32v7
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
