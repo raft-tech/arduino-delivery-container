@@ -31,6 +31,11 @@ steps:
     urls:
       from_secret: notification_url
 
+volumes:
+  - name: dockersock
+    host:
+      path: /var/run/docker.sock
+
 # kind: pipeline
 # name: amd64
 #
