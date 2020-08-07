@@ -1,6 +1,6 @@
 ---
 kind: pipeline
-name: docker builds
+name: default
 
 steps:
   - name: build amd64
