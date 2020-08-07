@@ -1,23 +1,22 @@
 ---
 kind: pipeline
-name: arm32v7
-
-platform:
-  os: linux
-  arch: arm
+name: default
 
 steps:
 
-- name: build arm32
-  image: plugins/docker
-  settings:
-    repo: barakstout/arduino-delivery-container
-    auto_tag: true
-    auto_tag_suffix: drone-arm32v7
+- name: build
+  image: docker
+  environment:
     username:
       from_secret: docker_username
     password:
       from_secret: docker_password
+    DOCKER_CLI_EXPERIMENTAL=enabled
+  commands:
+    - docker login
+    - docker buildx create --name multibuilder
+    - docker buildx use multibuilder
+    - docker buildx build --platform linux/amd64,linux/arm/v7,linux/arm/v6 -t barakstout/arduino-delivery-container:latest . --push
 
 - name: send
   image: plugins/webhook
