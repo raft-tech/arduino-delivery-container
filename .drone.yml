@@ -25,6 +25,9 @@ steps:
     - docker buildx create --name multibuilder
     - docker buildx use multibuilder
     - docker buildx build --platform linux/amd64,linux/arm/v7,linux/arm/v6 -t barakstout/arduino-delivery-container:latest . --push
+  volumes:
+    - name: dockersock
+      path: /var/run/docker.sock
 
 - name: send
   image: plugins/webhook
