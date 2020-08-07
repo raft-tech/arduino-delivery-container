@@ -14,7 +14,7 @@ steps:
   commands:
     - export DOCKER_CLI_EXPERIMENTAL=enabled
     - apt update && apt upgrade
-    - apt install -y curl
+    - apt -y install curl
     - curl -fsSL https://get.docker.com -o get-docker.sh
     - ./get-docker.sh
     - docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
