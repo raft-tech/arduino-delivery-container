@@ -5,7 +5,7 @@ name: default
 steps:
 
 - name: build
-  image: docker
+  image: ubuntu
   environment:
     DOCKER_LOGIN:
       from_secret: docker_username
@@ -14,6 +14,8 @@ steps:
     DOCKER_CLI_EXPERIMENTAL: enabled
     DOCKER_BUILD_KIT: 1
   commands:
+    - apt-get -y install curl
+    - curl https://releases.rancher.com/install-docker/19.03.sh | sh
     - wget https://github.com/docker/buildx/releases/download/v0.4.1/buildx-v0.4.1.linux-amd64
     - chmod a+x buildx-v0.4.1.linux-amd64
     - mkdir -p ~/.docker/cli-plugins
