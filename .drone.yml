@@ -1,5 +1,24 @@
 ---
 kind: pipeline
+name: arm32v7
+
+platform:
+  os: linux
+  arch: arm
+
+steps:
+- name: build arm32
+  image: plugins/docker
+  settings:
+    repo: barakstout/arduino-delivery-container
+    auto_tag: true
+    auto_tag_suffix: drone-arm32v7
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+---
+kind: pipeline
 name: amd64
 
 platform:
@@ -17,23 +36,13 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-
 ---
 kind: pipeline
-name: arm32v7
-
-platform:
-  os: linux
-  arch: arm
+name: send done notification
 
 steps:
-- name: build amd32
-  image: plugins/docker
-  settings:
-    repo: barakstout/arduino-delivery-container
-    auto_tag: true
-    auto_tag_suffix: drone-arm32v7
-    username:
-      from_secret: docker_username
-    password:
-      from_secret: docker_password
+  - name: send
+    image: plugins/webhook
+    settings:
+      urls:
+        from_secret: notification_url
