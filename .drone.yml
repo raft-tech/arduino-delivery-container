@@ -5,15 +5,17 @@ name: default
 steps:
 
 - name: build
-  image: docker
+  image: ubuntu
   environment:
     DOCKER_LOGIN:
       from_secret: docker_username
     DOCKER_PASSWORD:
       from_secret: docker_password
   commands:
-    - docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
     - export DOCKER_CLI_EXPERIMENTAL=enabled
+    - curl -fsSL https://get.docker.com -o get-docker.sh
+    - sudo sh get-docker.sh
+    - docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
     - docker buildx create --name multibuilder
     - docker buildx use multibuilder
     - docker buildx build --platform linux/amd64,linux/arm/v7,linux/arm/v6 -t barakstout/arduino-delivery-container:latest . --push
