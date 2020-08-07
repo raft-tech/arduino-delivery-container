@@ -24,7 +24,7 @@ name: arm32v7
 
 platform:
   os: linux
-  arch: arm32
+  arch: arm
 
 steps:
 - name: build amd32
