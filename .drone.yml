@@ -1,55 +1,51 @@
----
 kind: pipeline
-name: default
+name: arm
+
+platform:
+  os: linux
+  arch: arm
 
 steps:
 
-- name: build
-  image: docker
-  environment:
-    DOCKER_LOGIN:
+- name: build arm
+  image: plugins/docker
+  settings:
+    repo: barakstout/arduino-delivery-container
+    auto_tag: true
+    auto_tag_suffix: drone-arm
+    username:
       from_secret: docker_username
-    DOCKER_PASSWORD:
+    password:
       from_secret: docker_password
-    DOCKER_CLI_EXPERIMENTAL: enabled
-    DOCKER_BUILD_KIT: 1
-  commands:
-    - docker version
-    - docker buildx create --name multibuilder
-    - docker buildx use multibuilder
-    - docker buildx build --platform linux/amd64,linux/arm/v7,linux/arm/v6 -t barakstout/arduino-delivery-container:latest . --push
-  volumes:
-    - name: dockersock
-      path: /var/run/docker.sock
 
 - name: send
   image: plugins/webhook
   settings:
     urls:
       from_secret: notification_url
+---
+kind: pipeline
+name: amd64
 
-# kind: pipeline
-# name: amd64
-#
-# platform:
-#   os: linux
-#   arch: amd64
-#
-# steps:
-#
-# - name: build amd64
-#   image: plugins/docker
-#   settings:
-#     repo: barakstout/arduino-delivery-container
-#     auto_tag: true
-#     auto_tag_suffix: drone-amd64
-#     username:
-#       from_secret: docker_username
-#     password:
-#       from_secret: docker_password
-#
-# - name: send
-#   image: plugins/webhook
-#   settings:
-#     urls:
-#       from_secret: notification_url
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+
+- name: build amd64
+  image: plugins/docker
+  settings:
+    repo: barakstout/arduino-delivery-container
+    auto_tag: true
+    auto_tag_suffix: drone-amd64
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+
+- name: send
+  image: plugins/webhook
+  settings:
+    urls:
+      from_secret: notification_url
