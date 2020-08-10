@@ -1,4 +1,22 @@
 kind: pipeline
+name: default
+
+steps:
+- name: manifest
+  image: plugins/manifest
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    target: barakstout/arduino-delivery-container/bar:latest
+    template: barakstout/arduino-delivery-container/bar:latest-ARCH
+    platforms:
+      - linux/amd64
+      - linux/arm
+
+---
+kind: pipeline
 name: arm
 
 platform:
@@ -23,7 +41,7 @@ steps:
   settings:
     urls:
       from_secret: notification_url
-      
+
 ---
 kind: pipeline
 name: amd64
