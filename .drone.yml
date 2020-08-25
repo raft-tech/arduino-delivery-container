@@ -9,8 +9,8 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-    target: barakstout/arduino-delivery-container/bar:latest
-    template: barakstout/arduino-delivery-container/bar:latest-ARCH
+    target: rafttech/arduino-delivery-container/bar:latest
+    template: rafttech/arduino-delivery-container/bar:latest-ARCH
     platforms:
       - linux/amd64
       - linux/arm
@@ -28,7 +28,7 @@ steps:
 - name: build arm
   image: plugins/docker
   settings:
-    repo: barakstout/arduino-delivery-container
+    repo: rafttech/arduino-delivery-container
     auto_tag: true
     auto_tag_suffix: drone-arm
     username:
@@ -55,7 +55,7 @@ steps:
 - name: build amd64
   image: plugins/docker
   settings:
-    repo: barakstout/arduino-delivery-container
+    repo: rafttech/arduino-delivery-container
     auto_tag: true
     auto_tag_suffix: drone-amd64
     username:
