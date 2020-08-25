@@ -4,7 +4,7 @@ This repo contains code reffed to in the post [Using Docker, Drone.io and Ino to
 
 ## Getting Started
 
-The TL;DR:
+The **TL;DR**
 ```sh
 git clone https://github.com/raft-tech/arduino-delivery-container.git
 cd arduino-delivery-container/
