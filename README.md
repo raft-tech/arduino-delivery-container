@@ -1,6 +1,6 @@
 # arduino-delivery-container
 
-This repo contains code reffed to in the post [Using Docker, Drone.io and Ino to build a HIL Pipeline](https://goraft.tech/2020/08/17/continue-exploring-hil.html) which is part of [raft](https://goraft.tech) Hardware in the Loop exploration. The code will build a container that is able to build and deliver code to an [Arduino](https://www.arduino.cc/) device using [Ino](http://inotool.org/). Pre built containers are available on [Raft's DockerHub](https://hub.docker.com/orgs/rafttech/repositories).
+This repo contains code referred to in the post [Using Docker, Drone.io and Ino to build a HIL Pipeline](https://goraft.tech/2020/08/17/continue-exploring-hil.html) which is part of [raft](https://goraft.tech) Hardware in the Loop exploration. The code will build a container that is able to build and deliver code to an [Arduino](https://www.arduino.cc/) device using [Ino](http://inotool.org/). Pre built containers are available on [Raft's DockerHub](https://hub.docker.com/orgs/rafttech/repositories).
 
 ## Getting Started
 
@@ -14,7 +14,7 @@ docker run -it --device=/dev/ttyACM0 -e INO_FILENAME=/app/inos/one_led.ino ardui
 
 ## Make it your own
 
-Ultimately, you will want the arduino-delivery-container to deliver you code to the device. To do so, you will wan to have your `.ino` files in the `src` folder of this repo **before** building the container. After that, you will be able to build and run the container. For exmaple, let's say you want to deploy `myIno.ino` to target Arduino device.
+Ultimately, you will want the arduino-delivery-container to deliver your code to the device. To do so, you will want to have your `.ino` files in the `src` folder of this repo **before** building the container. After that, you will be able to build and run the container. For example, let's say you want to deploy `myIno.ino` to target Arduino device:
 
 ```sh
 docker build -t arduino-delivery-container .
